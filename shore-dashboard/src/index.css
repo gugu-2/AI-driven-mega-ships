@@ -1,0 +1,256 @@
+:root {
+  /* Colors from DESIGN.md */
+  --primary: #ea2804;
+  --on-primary: #ffffff;
+  --ink: #202020;
+  --body: #3a3a3a;
+  --charcoal: #575757;
+  --mute: #646464;
+  --canvas: #f9f7f3;
+  --surface-bone: #f3f0e8;
+  --surface-card: #ffffff;
+  --surface-dark: #202020;
+  --surface-deep: #000000;
+  --hairline: rgba(32,32,32,0.12);
+  --hairline-strong: #202020;
+  --divider-dark: rgba(255,255,255,0.2);
+  --badge-success: #2b9a66;
+  --on-dark: #fcfcfc;
+  --alert-amber: #ff9500;
+  --alert-red: #ea2804;
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  
+  /* Radii */
+  --rounded-md: 10px;
+  --rounded-lg: 16px;
+  --rounded-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  overflow: hidden;
+}
+
+/* Dashboard Grid */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 350px 1fr 350px;
+  grid-template-rows: 80px 1fr;
+  height: 100vh;
+  gap: 24px;
+  padding: 32px;
+}
+
+/* Header */
+.header {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 16px;
+}
+
+.header h1 {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -1px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header h1 span {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  background: var(--badge-success);
+  color: var(--on-dark);
+  padding: 4px 10px;
+  border-radius: var(--rounded-full);
+  font-weight: 600;
+}
+
+/* Panels (surface-card) */
+.panel {
+  background: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--rounded-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: none; /* Replicate removes drop shadows from cream surfaces */
+}
+
+.panel h2 {
+  font-family: var(--font-ui);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.33;
+  letter-spacing: -0.35px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Code Wells (surface-dark) */
+.code-block {
+  background: var(--surface-dark);
+  color: var(--on-dark);
+  font-family: var(--font-code);
+  font-size: 14px;
+  border-radius: var(--rounded-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.telemetry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-code);
+  font-size: 14px;
+}
+
+.telemetry-label {
+  color: rgba(252,252,252,0.72); /* on-dark-mute */
+}
+
+.telemetry-value {
+  color: var(--on-dark);
+}
+
+.telemetry-value.alert-amber {
+  color: var(--alert-amber);
+}
+
+.telemetry-value.alert-red {
+  color: var(--alert-red);
+}
+
+/* Map Container (surface-dark) */
+.map-container {
+  grid-column: 2;
+  position: relative;
+  border-radius: var(--rounded-lg);
+  overflow: hidden;
+  background: var(--surface-dark); /* Replicate code well contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hairline-strong);
+}
+
+/* Custom Ship Icon for Leaflet */
+.custom-ship-icon {
+  background: transparent;
+  border: none;
+}
+
+.ship-marker-inner {
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary);
+  border-radius: var(--rounded-full);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.ship-marker-inner::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 2px solid var(--primary);
+  border-radius: var(--rounded-full);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Override Leaflet font to match UI */
+.leaflet-container {
+  font-family: var(--font-ui) !important;
+}
+
+/* RUL Bar */
+.rul-bar-container {
+  width: 100%;
+  height: 8px;
+  background: var(--surface-deep);
+  border-radius: var(--rounded-full);
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.rul-bar {
+  height: 100%;
+  background: var(--badge-success);
+  transition: width 1s ease-in-out, background-color 0.5s ease;
+}
+
+.rul-bar.warning { background: var(--alert-amber); }
+.rul-bar.critical { background: var(--primary); } /* Replicate Orange for critical */
+
+/* Storm */
+.storm-zone {
+  position: absolute;
+  border-radius: var(--rounded-full);
+  background: rgba(234, 40, 4, 0.1);
+  border: 1px dashed var(--primary);
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Buttons */
+.button-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.0;
+  border-radius: var(--rounded-full);
+  padding: 12px 24px;
+  height: 44px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-primary:hover {
+  background-color: #c01f00; /* primary-deep */
+}
