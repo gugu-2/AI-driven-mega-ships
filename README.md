@@ -6,6 +6,8 @@ This repository contains the architecture, backend models, and frontend command 
 
 The project is divided into an edge-compute maritime backend (simulating the ship's brain) and a web-based Shore Operations Dashboard (simulating the satellite command center). 
 
+---
+
 ### Key Features
 - **Intelligent Maritime Pathfinding:** Uses an A* algorithm paired with a `global-land-mask` to dynamically calculate safe, water-only routes around continents, entirely avoiding landmasses and simulated storm zones.
 - **Continuous Navigation Control:** Integrates a Deep Deterministic Policy Gradient (DDPG) reinforcement learning environment for collision avoidance and COLREGs-compliant steering.
